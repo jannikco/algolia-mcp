@@ -1,0 +1,125 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Algolia selected operations",
+    "version": "0.2.0",
+    "description": "Reviewed local connector bindings for manual API import. No provider credentials are included; authentication and hosted execution require separate configuration and tests."
+  },
+  "servers": [
+    {
+      "url": "https://{ALGOLIA_APP_ID}.algolia.net/1",
+      "variables": {
+        "ALGOLIA_APP_ID": {
+          "default": "your-account",
+          "description": "Replace with your own authorized provider account value."
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/indexes": {
+      "get": {
+        "operationId": "list_indices",
+        "summary": "List Algolia indices using a key with listIndexes permission.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "hitsPerPage",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000
+            }
+          }
+        ],
+        "x-pipmcp-read-only": true,
+        "responses": {
+          "200": {
+            "description": "Provider response; inspect provider documentation for result fields."
+          }
+        }
+      }
+    },
+    "/indexes/{indexName}/query": {
+      "post": {
+        "operationId": "search_index",
+        "summary": "Search one index without modifying its records.",
+        "parameters": [
+          {
+            "name": "indexName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 512,
+              "description": "Identifier"
+            }
+          }
+        ],
+        "x-pipmcp-read-only": true,
+        "responses": {
+          "200": {
+            "description": "Provider response; inspect provider documentation for result fields."
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "maxLength": 512
+                  },
+                  "hitsPerPage": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 1000
+                  },
+                  "page": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                },
+                "required": []
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "providerAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Algolia-API-Key"
+      },
+      "header_X_Algolia_Application_Id": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Algolia-Application-Id"
+      }
+    }
+  },
+  "security": [
+    {
+      "providerAuth": [],
+      "header_X_Algolia_Application_Id": []
+    }
+  ]
+}
