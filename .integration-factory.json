@@ -1,290 +1,62 @@
 {
   "schemaVersion": 1,
-  "status": "ready",
-  "verification": "mock-only",
-  "releaseEligible": true,
-  "maintainer": "jannikco",
-  "license": "MIT",
-  "sourceRevision": "d3e1fd451b716044dd485da87892a0bf20ce2cdb1915b6289afaef610835b6de",
-  "evidence": [
-    "Actual tools/call and direct-provider request contract tests"
-  ],
-  "provenance": [
-    "https://raw.githubusercontent.com/algolia/api-clients-automation/main/specs/bundled/search.yml"
-  ],
   "id": "algolia-mcp",
   "kind": "provider-connector",
   "product": "pipmcp",
   "title": "Algolia MCP server",
-  "description": "Inspect available indices and query a chosen product index to review search relevance.",
-  "operationIds": [
-    "list_indices",
-    "search_index"
+  "description": "Use Algolia with AI agents through one PipMCP API key, actual hosted schemas and governed execution.",
+  "status": "ready",
+  "verification": "mock-only",
+  "releaseEligible": true,
+  "operationIds": [],
+  "maintainer": "jannikco",
+  "license": "MIT",
+  "attributionSlug": "github-algolia-mcp",
+  "sourceRevision": "357749c22d68131c492f956a2c8c5cc3d851dcf4dab06135543ed0c9e4f173c4",
+  "qualityVersion": 2,
+  "artifactType": "connector",
+  "evidence": [
+    "Gateway HTTP transport fixtures",
+    "Generated stdio wrapper discovery/call fixtures"
   ],
+  "provenance": [
+    "https://raw.githubusercontent.com/algolia/api-clients-automation/main/specs/bundled/search.yml"
+  ],
+  "utility": {
+    "problem": "Inspect available indices and query a chosen product index to review search relevance.",
+    "output": "Actual hosted tool schemas and durable governed execution receipts"
+  },
   "appSlug": "algolia",
   "appName": "Algolia",
-  "providerDocs": "https://raw.githubusercontent.com/algolia/api-clients-automation/main/specs/bundled/search.yml",
-  "providerWebsite": "https://www.algolia.com/",
-  "authentication": {
-    "type": "custom_headers",
-    "requiredCredentialFields": [
-      "provider_header_credentials"
-    ],
-    "settings": {},
-    "requiredHeaderNames": [
-      "X-Algolia-Application-Id",
-      "X-Algolia-API-Key"
-    ],
-    "helpUrl": "https://www.algolia.com/doc/guides/security/api-keys/",
-    "tenantRequired": true,
-    "accountParameterNames": []
-  },
-  "attributionSlug": "github-algolia-mcp",
-  "artifactType": "connector",
-  "qualityVersion": 2,
   "connectorId": "algolia",
-  "connector": {
-    "id": "algolia",
-    "name": "Algolia",
-    "version": "0.2.0",
-    "baseUrl": "https://{ALGOLIA_APP_ID}.algolia.net/1",
-    "auth": {
-      "type": "header",
-      "env": "ALGOLIA_API_KEY",
-      "header": "X-Algolia-API-Key",
-      "extraHeaders": {
-        "X-Algolia-Application-Id": {
-          "env": "ALGOLIA_APP_ID"
-        }
-      }
-    },
-    "tools": [
-      {
-        "name": "list_indices",
-        "description": "List Algolia indices using a key with listIndexes permission.",
-        "method": "GET",
-        "path": "/indexes",
-        "readOnly": true,
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "page": {
-              "type": "integer",
-              "minimum": 0
-            },
-            "hitsPerPage": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 1000
-            }
-          },
-          "required": [],
-          "additionalProperties": false
-        },
-        "bindings": {
-          "path": [],
-          "query": {
-            "page": "page",
-            "hitsPerPage": "hitsPerPage"
-          },
-          "body": {}
-        },
-        "sampleArguments": {},
-        "provenance": [
-          "https://raw.githubusercontent.com/algolia/api-clients-automation/main/specs/bundled/search.yml"
-        ]
-      },
-      {
-        "name": "search_index",
-        "description": "Search one index without modifying its records.",
-        "method": "POST",
-        "path": "/indexes/{indexName}/query",
-        "readOnly": true,
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "indexName": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 512,
-              "description": "Identifier"
-            },
-            "query": {
-              "type": "string",
-              "maxLength": 512
-            },
-            "hitsPerPage": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 1000
-            },
-            "page": {
-              "type": "integer",
-              "minimum": 0
-            }
-          },
-          "required": [
-            "indexName"
-          ],
-          "additionalProperties": false
-        },
-        "bindings": {
-          "path": [
-            "indexName"
-          ],
-          "query": {},
-          "body": {
-            "query": "query",
-            "hitsPerPage": "hitsPerPage",
-            "page": "page"
-          }
-        },
-        "sampleArguments": {
-          "indexName": "products",
-          "query": "blue",
-          "hitsPerPage": 10
-        },
-        "provenance": [
-          "https://raw.githubusercontent.com/algolia/api-clients-automation/main/specs/bundled/search.yml"
-        ]
-      }
-    ],
-    "workflow": {
-      "name": "Catalog search audit",
-      "description": "Inspect available indices and query a chosen product index to review search relevance.",
-      "steps": [
-        "list_indices",
-        "search_index"
-      ]
-    },
-    "provenance": [
-      "https://raw.githubusercontent.com/algolia/api-clients-automation/main/specs/bundled/search.yml"
-    ],
-    "verification": "mock-only",
-    "providerLiveValidation": "not-run",
-    "capabilityEvidence": {
-      "local": {
-        "level": "Tested",
-        "operations": [
-          {
-            "name": "list_indices",
-            "level": "Tested",
-            "evidenceRefs": [
-              "Provider request/stdio contract tests"
-            ],
-            "method": "contract-fixture"
-          },
-          {
-            "name": "search_index",
-            "level": "Tested",
-            "evidenceRefs": [
-              "Provider request/stdio contract tests"
-            ],
-            "method": "contract-fixture"
-          }
-        ],
-        "evidenceRefs": [
-          "Provider request/stdio contract tests"
-        ],
-        "mode": "local"
-      },
-      "managed": {
-        "level": "Documented",
-        "operations": [
-          {
-            "name": "list_indices",
-            "level": "Documented",
-            "evidenceRefs": [],
-            "method": "documentation"
-          },
-          {
-            "name": "search_index",
-            "level": "Documented",
-            "evidenceRefs": [],
-            "method": "documentation"
-          }
-        ],
-        "evidenceRefs": [],
-        "mode": "managed"
-      }
-    },
-    "allowedHostSuffixes": [
-      "algolia.net"
-    ],
-    "repoId": "algolia-mcp",
-    "appSlug": "algolia",
-    "product": "pipmcp",
-    "artifactType": "connector",
-    "sourceRevision": "d3e1fd451b716044dd485da87892a0bf20ce2cdb1915b6289afaef610835b6de",
-    "authentication": {
-      "type": "custom_headers",
-      "requiredCredentialFields": [
-        "provider_header_credentials"
-      ],
-      "settings": {},
-      "requiredHeaderNames": [
-        "X-Algolia-Application-Id",
-        "X-Algolia-API-Key"
-      ],
-      "helpUrl": "https://www.algolia.com/doc/guides/security/api-keys/",
-      "tenantRequired": true,
-      "accountParameterNames": []
-    },
-    "managedAvailability": {
-      "status": "listed",
-      "checkedAt": "2026-11-08T12:29:10.433747+00:00"
-    }
-  },
+  "executionAuthority": "pipmcp-gateway",
+  "version": "1.0.0",
+  "agentReady": true,
   "capabilityEvidence": {
     "local": {
       "level": "Tested",
       "operations": [
         {
-          "name": "list_indices",
+          "name": "gateway_transport",
           "level": "Tested",
+          "method": "contract-fixture",
           "evidenceRefs": [
-            "Provider request/stdio contract tests"
-          ],
-          "method": "contract-fixture"
-        },
-        {
-          "name": "search_index",
-          "level": "Tested",
-          "evidenceRefs": [
-            "Provider request/stdio contract tests"
-          ],
-          "method": "contract-fixture"
+            "Generated gateway/stdio fixtures"
+          ]
         }
       ],
       "evidenceRefs": [
-        "Provider request/stdio contract tests"
+        "Generated gateway/stdio fixtures"
       ],
       "mode": "local"
     },
     "managed": {
       "level": "Documented",
-      "operations": [
-        {
-          "name": "list_indices",
-          "level": "Documented",
-          "evidenceRefs": [],
-          "method": "documentation"
-        },
-        {
-          "name": "search_index",
-          "level": "Documented",
-          "evidenceRefs": [],
-          "method": "documentation"
-        }
-      ],
+      "operations": [],
       "evidenceRefs": [],
       "mode": "managed"
     }
   },
-  "utility": {
-    "problem": "Inspect available indices and query a chosen product index to review search relevance.",
-    "output": "Actual provider API results through local MCP tools"
-  },
   "factory": "leadadapter-pipmcp",
-  "generatorVersion": 2
+  "generatorVersion": 3
 }

@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "product": "pipmcp",
+  "credential": "PIPMCP_API_KEY",
+  "skills": [
+    {
+      "name": "pipmcp-algolia",
+      "description": "Connect AI agents to Algolia using one PipMCP API key and actual hosted tool discovery."
+    }
+  ],
+  "files": {
+    "skills/pipmcp-algolia/SKILL.md": "aa74455fab38c230c8aadf39f6cf51d6aefbd071ef87ed8c0cd9a0a608b5498e"
+  }
+}
