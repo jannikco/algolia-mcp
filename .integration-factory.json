@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "status": "ready",
+  "verification": "mock-only",
+  "releaseEligible": true,
+  "maintainer": "jannikco",
+  "license": "MIT",
+  "sourceRevision": "41acf2abafd189195f59f451420c54751937505ec639affcad6546b929396ece",
+  "evidence": [
+    "Source-backed provider setup metadata",
+    "Offline configuration and MCP protocol tests"
+  ],
+  "provenance": [
+    "https://raw.githubusercontent.com/algolia/api-clients-automation/main/specs/bundled/search.yml"
+  ],
+  "id": "algolia-mcp",
+  "kind": "mcp-setup",
+  "product": "pipmcp",
+  "title": "Algolia MCP setup and connection checker",
+  "description": "Generate Algolia MCP client configuration, inspect available tools and validate hosted endpoint access through PipMCP.",
+  "operationIds": [],
+  "appSlug": "algolia",
+  "appName": "Algolia",
+  "providerDocs": "https://raw.githubusercontent.com/algolia/api-clients-automation/main/specs/bundled/search.yml",
+  "providerWebsite": "https://www.algolia.com/",
+  "authentication": {
+    "type": "custom_headers",
+    "requiredCredentialFields": [
+      "provider_header_credentials"
+    ],
+    "requiredHeaderNames": [
+      "X-Algolia-Application-Id",
+      "X-Algolia-API-Key"
+    ],
+    "helpUrl": "https://www.algolia.com/doc/guides/security/api-keys/",
+    "tenantRequired": true,
+    "accountParameterNames": []
+  },
+  "attributionSlug": "github-algolia-mcp",
+  "factory": "leadadapter-pipmcp",
+  "generatorVersion": 1
+}
